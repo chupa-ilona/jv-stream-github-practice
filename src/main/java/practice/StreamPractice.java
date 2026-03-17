@@ -26,16 +26,11 @@ public class StreamPractice {
     }
 
     public Double getOddNumsAverage(List<Integer> numbers) {
-        IntStream.range(0, numbers.size())
+        return IntStream.range(0, numbers.size())
+                .map(i -> i % 2 != 0 ? numbers.get(i) - 1 : numbers.get(i))
                 .filter(i -> i % 2 != 0)
-                .forEach(i -> numbers.set(i, numbers.get(i) - 1));
-
-        Stream<Integer> stream = numbers.stream();
-        OptionalDouble result = stream.filter(i -> i % 2 != 0)
-                .mapToDouble(i -> i)
-                .average();
-        return result.orElseThrow(() -> new NoSuchElementException("No "
-                + "odd numbers in the list"));
+                .average()
+                .orElseThrow(() -> new NoSuchElementException("No odd numbers in the list"));
     }
 
     public List<Person> selectMenByAge(List<Person> peopleList, int fromAge, int toAge) {
