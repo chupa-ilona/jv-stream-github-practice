@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
-import java.util.stream.Collectors;
 import java.util.OptionalDouble;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import model.Candidate;
 import model.Person;
@@ -25,9 +26,10 @@ public class StreamPractice {
     }
 
     public Double getOddNumsAverage(List<Integer> numbers) {
-        for (int i = 1 ; i < numbers.size(); i = i + 2) {
-            numbers.set(i, numbers.get(i) - 1);
-        }
+        IntStream.range(0, numbers.size())
+                .filter(i -> i % 2 != 0)
+                .forEach(i -> numbers.set(i, numbers.get(i) - 1));
+
         Stream<Integer> stream = numbers.stream();
         OptionalDouble result = stream.filter(i -> i % 2 != 0)
                 .mapToDouble(i -> i)
